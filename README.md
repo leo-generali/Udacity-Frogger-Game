@@ -1,6 +1,20 @@
-frontend-nanodegree-arcade-game
-===============================
+Frogger Clone
+===
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+Setting up the Game:
+---
+1. Clone the repository to your computer
+2. Run index.html
+3. Enjoy!
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+Gameplay:
+---
+You've gotta get to the river! Make it across the street without hitting any of the bugs and see how many points you can accumulate before things get crazy fast.
+
+Controls
+---
+**Keypad** - Move your character!
+
+Known Bugs
+---
+The game currently doesn't have a reset state. The moment you get hit by a bug the game starts from scratch again. Right now it's a very bare bones game, but I'm hoping to add more to it as I delver deeper into JS.

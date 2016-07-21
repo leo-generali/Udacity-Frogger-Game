@@ -1,8 +1,8 @@
-var Enemy = function(enemyX, enemyY, enemySpeed) {
+var Enemy = function(enemyX, enemyY) {
     //USER ADDED - Speed of enemy can be set
     this.x = enemyX;
     this.y = enemyY;
-    this.speed = enemySpeed;
+    this.setRandomSpeed();
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -20,6 +20,10 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//USER ADDED - Creates a random speed between 100 and 300.
+Enemy.prototype.setRandomSpeed = function(){
+    this.speed = Math.random() * (300 - 100) + 100;
+};
 
 //USER ADDED - 
 var Player = function(startingX, startingY){
@@ -37,15 +41,15 @@ Player.prototype.update = function(dt){
 //the game resets. If the player reaches the end of the map the win function is called
 Player.prototype.checkCollisions = function() {
     for(var i = 0; i < allEnemies.length; i++){
-        if(player.x < allEnemies[i].x + 30 &&
-            player.x + 30 > allEnemies[i].x &&
-            player.y < allEnemies[i].y + 30 &&
-            player.y + 30 > allEnemies[i].y) {
+        if(this.x < allEnemies[i].x + 50 &&
+            this.x + 50 > allEnemies[i].x &&
+            this.y < allEnemies[i].y + 50 &&
+            this.y + 50 > allEnemies[i].y) {
             this.x = 200;
             this.y = 375;
             score = 0;
             for(var i = 0; i < allEnemies.length; i++){
-                allEnemies[i].speed = randomSpeed();
+                allEnemies[i].setRandomSpeed();
             }
         }
     }
@@ -58,32 +62,34 @@ Player.prototype.render = function(){
 //USER ADDED - Checks if players next key press moves their character out of the game map.
 //No action taken if the character can move off the map.
 Player.prototype.handleInput = function(key){
+    var xMove = 101;
+    var yMove = 83;
     switch(key){
         case 'left': 
-            if(this.x - 101 < -2){
+            if(this.x - xMove < -2){
                 break;
             }
-            this.x -= 101;
+            this.x -= xMove;
         break;
         case 'right': 
-            if(this.x + 101 > 450){
+            if(this.x + xMove > 450){
                 break;
             }
-            this.x += 101;
+            this.x += xMove;
         break;
         case 'up': 
-                if(this.y - 83 < 0 ){
-                win();
-                break;
+                if(this.y - yMove < 0 ){
+                player.win();
+                break;  
             }
-            this.y -= 83;
+            this.y -= yMove;
         break;
 
         case 'down': 
-            if(this.y + 83 > 450 ){
+            if(this.y + yMove > 450 ){
                 break;
             }
-            this.y += 83;
+            this.y += yMove;
         break;
     }
 };
@@ -91,21 +97,18 @@ Player.prototype.handleInput = function(key){
 //USER ADDED - Creates a new player at the provided X, Y coordinate
 var player = new Player(200, 375);
 
-//USER ADDED - Creates a random speed between 100 and 300.
-var randomSpeed = function(){
-    return Math.random() * (300 - 100) + 100;
-};
+
 
 //USER ADDED - Creates the enemies and populates the gameboard
-var enemy1 = new Enemy(300, 126, randomSpeed());
-var enemy2 = new Enemy(100, 209, randomSpeed());
-var enemy3 = new Enemy(200, 292, randomSpeed());
+var enemy1 = new Enemy(300, 126);
+var enemy2 = new Enemy(100, 209);
+var enemy3 = new Enemy(200, 292);
 var allEnemies = [enemy1, enemy2, enemy3]; 
 var score = 0;
 
 //USER ADDED - Moves player back to start, increases difficulty (enemy speed goes up), and
 //ups the score by 10.
-var win = function(){
+Player.prototype.win = function(){
     score += 10;
     for(var i = 0; i < allEnemies.length; i++){
         allEnemies[i].speed += 20;

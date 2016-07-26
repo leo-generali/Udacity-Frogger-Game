@@ -1,3 +1,5 @@
+'use strict';
+
 var Enemy = function(enemyX, enemyY) {
     //USER ADDED - Speed of enemy can be set
     this.x = enemyX;
@@ -48,8 +50,8 @@ Player.prototype.checkCollisions = function() {
             this.x = 200;
             this.y = 375;
             score = 0;
-            for(var i = 0; i < allEnemies.length; i++){
-                allEnemies[i].setRandomSpeed();
+            for(var z = 0; z < allEnemies.length; z++){
+                allEnemies[z].setRandomSpeed();
             }
         }
     }
@@ -115,7 +117,6 @@ Player.prototype.win = function(){
     }
     this.x = 200;
     this.y = 375;
-    console.log(score);
     return true;
 };
 

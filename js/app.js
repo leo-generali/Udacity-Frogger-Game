@@ -79,7 +79,7 @@ Player.prototype.handleInput = function(key){
         break;
         case 'up': 
                 if(this.y - yMove < 0 ){
-                player.win();
+                this.win();
                 break;  
             }
             this.y -= yMove;
@@ -113,8 +113,8 @@ Player.prototype.win = function(){
     for(var i = 0; i < allEnemies.length; i++){
         allEnemies[i].speed += 20;
     }
-    player.x = 200;
-    player.y = 375;
+    this.x = 200;
+    this.y = 375;
     console.log(score);
     return true;
 };

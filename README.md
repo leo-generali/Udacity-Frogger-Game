@@ -4,9 +4,11 @@ Frogger Clone
 Setting up the Game:
 ---
 Easy Way:
+
 1. Click [here](http://www.leogenerali.com/Udacity-Frogger-Game/).
 
 Hard Way:
+
 1. Clone the repository to your computer
 2. Run index.html
 3. Enjoy!

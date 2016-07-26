@@ -1,4 +1,6 @@
-'use strict';
+var playerXStart = 200;
+var playerYStart = 375;
+
 
 var Enemy = function(enemyX, enemyY) {
     //USER ADDED - Speed of enemy can be set
@@ -24,7 +26,9 @@ Enemy.prototype.render = function() {
 
 //USER ADDED - Creates a random speed between 100 and 300.
 Enemy.prototype.setRandomSpeed = function(){
-    this.speed = Math.random() * (300 - 100) + 100;
+    var speedFloor = 100;
+    var speedCeiling = 300;
+    this.speed = Math.random() * (speedCeiling - speedFloor) + speedFloor;
 };
 
 //USER ADDED - 
@@ -42,13 +46,16 @@ Player.prototype.update = function(dt){
 //USER ADDED - Checks for a collision between player and enemy. If enemy and player collide
 //the game resets. If the player reaches the end of the map the win function is called
 Player.prototype.checkCollisions = function() {
+    var enemyHitboxSize = 50;
+
+
     for(var i = 0; i < allEnemies.length; i++){
-        if(this.x < allEnemies[i].x + 50 &&
-            this.x + 50 > allEnemies[i].x &&
-            this.y < allEnemies[i].y + 50 &&
-            this.y + 50 > allEnemies[i].y) {
-            this.x = 200;
-            this.y = 375;
+        if(this.x < allEnemies[i].x + enemyHitboxSize &&
+            this.x + enemyHitboxSize > allEnemies[i].x &&
+            this.y < allEnemies[i].y + enemyHitboxSize &&
+            this.y + enemyHitboxSize > allEnemies[i].y) {
+            this.x = playerXStart;
+            this.y = playerYStart;
             score = 0;
             for(var z = 0; z < allEnemies.length; z++){
                 allEnemies[z].setRandomSpeed();
@@ -66,15 +73,18 @@ Player.prototype.render = function(){
 Player.prototype.handleInput = function(key){
     var xMove = 101;
     var yMove = 83;
+    var maxMove = 450;
+    var minMove = -2;
+
     switch(key){
         case 'left': 
-            if(this.x - xMove < -2){
+            if(this.x - xMove < minMove){
                 break;
             }
             this.x -= xMove;
         break;
         case 'right': 
-            if(this.x + xMove > 450){
+            if(this.x + xMove > maxMove){
                 break;
             }
             this.x += xMove;
@@ -88,7 +98,7 @@ Player.prototype.handleInput = function(key){
         break;
 
         case 'down': 
-            if(this.y + yMove > 450 ){
+            if(this.y + yMove > maxMove ){
                 break;
             }
             this.y += yMove;
@@ -97,7 +107,7 @@ Player.prototype.handleInput = function(key){
 };
 
 //USER ADDED - Creates a new player at the provided X, Y coordinate
-var player = new Player(200, 375);
+var player = new Player(playerXStart, playerYStart);
 
 
 
